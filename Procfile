@@ -1,1 +1,1 @@
-web: gunicorn buffer_clone.wsgi
+web: gunicorn Buffer.wsgi
