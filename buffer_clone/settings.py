@@ -9,6 +9,8 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 from cloudinary.models import CloudinaryField
+import dj_database_url
+from decouple import config
 
 cloudinary.config( 
   cloud_name = "dpd0dh2of", 
@@ -75,10 +77,9 @@ WSGI_APPLICATION = "buffer_clone.wsgi.application"
 
 # Database
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    'default': dj_database_url.config(
+        default=config("DATABASE_URL")
+    )
 }
 
 # Password validation
