@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8 relative">
+
+        <!-- ✅ Toast container -->
+        {% if messages %}
+            <div id="alert-container" class="absolute top-4 left-0 w-full px-4 space-y-2 z-50">
+                {% for message in messages %}
+                    <div class="
+                        px-4 py-3 rounded-lg shadow-md flex justify-between items-center
+                        transform -translate-y-6 opacity-0 transition-all duration-500 ease-out
+                        {% if message.tags == 'error' %}
+                            bg-red-100 text-red-800 border border-red-300
+                        {% elif message.tags == 'success' %}
+                            bg-green-100 text-green-800 border border-green-300
+                        {% else %}
+                            bg-blue-100 text-blue-800 border border-blue-300
+                        {% endif %}
+                    " 
+                    data-message-type="{{ message.tags }}">
+                        <div class="flex items-center space-x-2">
+                            {% if message.tags == 'error' %}
+                                <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            {% elif message.tags == 'success' %}
+                                <svg class="w-5 h-5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            {% else %}
+                                <svg class="w-5 h-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                          d="M13 16h-1v-4h-1m1-4h.01M12 4a8 8 0 100 16 8 8 0 000-16z" />
+                                </svg>
+                            {% endif %}
+                            <span>{{ message }}</span>
+                        </div>
+                        <button type="button" class="ml-4 text-lg font-bold focus:outline-none" aria-label="Close">&times;</button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Sign In</h1>
+
+        <form method="POST" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input id="username" name="username" type="text" required 
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input id="password" name="password" type="password" required 
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+
+            <div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700">
+                    Log In
+                </button>
+            </div>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-4">
+            Don't have an account? 
+            <a href="{% url 'register' %}" class="text-indigo-600 hover:underline">Sign up</a>
+        </p>
+    </div>
+</div>
+
+<!-- ✅ Slide from top animation -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const alerts = document.querySelectorAll('#alert-container > div');
+
+        // Animate in
+        setTimeout(() => {
+            alerts.forEach(alert => {
+                alert.classList.remove('-translate-y-6', 'opacity-0');
+            });
+        }, 100);
+
+        alerts.forEach(alert => {
+            const closeBtn = alert.querySelector('button');
+            closeBtn.addEventListener('click', () => fadeSlideOut(alert));
+
+            let delay = 4000;
+            if (alert.dataset.messageType === 'success') delay = 3000;
+            if (alert.dataset.messageType === 'error') delay = 6000;
+
+            setTimeout(() => fadeSlideOut(alert), delay);
+        });
+
+        function fadeSlideOut(element) {
+            element.classList.add('-translate-y-6', 'opacity-0');
+            setTimeout(() => element.remove(), 500);
+        }
+    });
+</script>
+{% endblock %}

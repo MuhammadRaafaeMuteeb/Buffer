@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="grid grid-cols-2 gap-4">
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold mb-2">Connect Social Accounts</h3>
+    <div class="space-y-2">
+      <a href="/social-auth/meta/connect/" class="block px-3 py-2 border rounded">Connect Meta (Facebook / Instagram)</a>
+      <a href="/social-auth/linkedin/connect/" class="block px-3 py-2 border rounded">Connect LinkedIn</a>
+    </div>
+  </div>
+  <div class="bg-white p-4 rounded shadow">
+    <h3 class="font-semibold mb-2">Connected Accounts</h3>
+    <ul>
+      {% for a in accounts %}
+        <li class="py-2">{{ a.provider }} — {{ a.account_id|default:'(no id)' }}</li>
+      {% empty %}
+        <li class="text-slate-500">No accounts connected yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

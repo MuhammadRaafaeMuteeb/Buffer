@@ -1,0 +1,1 @@
+Static files folder. Tailwind is used via CDN for prototype.

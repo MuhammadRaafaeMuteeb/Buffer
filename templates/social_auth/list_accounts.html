@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-3xl mx-auto mt-10 bg-white shadow rounded-lg p-6">
+    <h2 class="text-2xl font-bold mb-4">Connected Accounts</h2>
+
+    <div class="space-y-4">
+        <div class="flex justify-between items-center p-4 bg-gray-50 rounded">
+            <span>Facebook / Instagram</span>
+            {% if meta_connected %}
+                <span class="text-green-600 font-semibold">Connected</span>
+            {% else %}
+                <a href="{% url 'meta_connect' %}" class="px-4 py-2 bg-blue-600 text-white rounded">Connect</a>
+            {% endif %}
+        </div>
+
+        <div class="flex justify-between items-center p-4 bg-gray-50 rounded">
+            <span>LinkedIn</span>
+            {% if linkedin_connected %}
+                <span class="text-green-600 font-semibold">Connected</span>
+            {% else %}
+                <a href="{% url 'linkedin_connect' %}" class="px-4 py-2 bg-blue-700 text-white rounded">Connect</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

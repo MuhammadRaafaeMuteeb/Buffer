@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Manage Accounts{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto mt-10 bg-white p-8 rounded-2xl shadow">
+    <h1 class="text-2xl font-bold text-center mb-6">Manage Accounts</h1>
+
+    <div class="space-y-4">
+
+        <!-- Facebook -->
+        {% if connected.facebook %}
+            <div class="flex justify-between items-center bg-blue-50 p-4 rounded-xl">
+                <span class="font-semibold text-blue-700">Facebook ✅</span>
+                <a href="{% url 'disconnect_account' 'facebook' %}" 
+                   class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                   Disconnect
+                </a>
+            </div>
+        {% else %}
+            <a href="{% url 'facebook_connect' %}" 
+               class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl font-semibold transition">
+                Connect Facebook
+            </a>
+        {% endif %}
+
+        <!-- Instagram -->
+        {% if connected.instagram %}
+            <div class="flex justify-between items-center bg-pink-50 p-4 rounded-xl">
+                <span class="font-semibold text-pink-600">Instagram ✅</span>
+                <a href="{% url 'disconnect_account' 'instagram' %}" 
+                   class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                   Disconnect
+                </a>
+            </div>
+        {% else %}
+            <a href="{% url 'instagram_connect' %}" 
+               class="block w-full text-center bg-pink-500 hover:bg-pink-600 text-white py-3 px-4 rounded-xl font-semibold transition">
+                Connect Instagram
+            </a>
+        {% endif %}
+
+        <!-- LinkedIn -->
+        {% if connected.linkedin %}
+            <div class="flex justify-between items-center bg-sky-50 p-4 rounded-xl">
+                <span class="font-semibold text-sky-700">LinkedIn ✅</span>
+                <a href="{% url 'disconnect_account' 'linkedin' %}" 
+                   class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+                   Disconnect
+                </a>
+            </div>
+        {% else %}
+            <a href="{% url 'linkedin_connect' %}" 
+               class="block w-full text-center bg-sky-700 hover:bg-sky-800 text-white py-3 px-4 rounded-xl font-semibold transition">
+                Connect LinkedIn
+            </a>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
