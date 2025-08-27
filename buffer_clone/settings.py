@@ -28,7 +28,7 @@ SECRET_KEY = "replace_with_a_random_secret_key_for_dev"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "social-ihgf.onrender.com"]
 
 # Application definition
 INSTALLED_APPS = [
